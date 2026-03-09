@@ -3,10 +3,26 @@
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Branch: Beta](https://img.shields.io/badge/Branch-Beta-yellow)](https://github.com/LuxObsidian/Discord-KleeNet/tree/beta)
+[![Status: Beta](https://img.shields.io/badge/Status-Beta-blue)](#)
+
+> **Note:** This README reflects the Beta branch. Features here may change before merging into Main.
 
 ---
 
-## **Overview**
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Step-by-Step Installation](#step-by-step-installation)
+- [Usage](#usage)
+- [Branch Workflow](#branch-workflow)
+- [Logging](#logging)
+- [Security Best Practices](#security-best-practices)
+- [Screenshots](#screenshots)
+- [License](#license)
+
+---
+
+## Overview
 KleeNet is a fun Discord bot that interacts with a specific user (`@Kleemann`) while keeping server interactions controlled.  
 All fun commands can be triggered by anyone, but they **only respond if the target user is present**.
 
@@ -14,7 +30,7 @@ The bot is designed for safe development using a **Beta branch workflow** before
 
 ---
 
-## **Features**
+## Features
 
 - **Fun commands for `@Kleemann`:**
   - `/klee` – playful greeting  
@@ -33,7 +49,7 @@ The bot is designed for safe development using a **Beta branch workflow** before
 
 ---
 
-## **Installation**
+## Step-by-Step Installation
 
 1. **Clone the repository:**
 
