@@ -2,7 +2,10 @@ import discord
 from discord import app_commands
 import time
 
-TARGET_USER = "Kleemann"  # nur auf diesen User reagiert der Bot
+# -------------------------------
+# Konfiguration
+# -------------------------------
+TARGET_USER_ID = 257239098379468801  # <- Discord ID von Kleemann eintragen
 
 # -------------------------------
 # Cooldown Setup
@@ -27,6 +30,12 @@ def check_cooldown(user_id: int, command_name: str) -> bool:
     last_used[(user_id, command_name)] = now
     return True
 
+# -------------------------------
+# Hilfsfunktion: Kleemann holen
+# -------------------------------
+def get_target_member(guild: discord.Guild):
+    return guild.get_member(TARGET_USER_ID)
+
 # ----------------------------------------
 # /klee Command
 # ----------------------------------------
@@ -41,15 +50,15 @@ async def klee(interaction: discord.Interaction):
         )
         return
 
-    member = discord.utils.get(interaction.guild.members, name=TARGET_USER)
+    member = get_target_member(interaction.guild)
     if not member:
         await interaction.response.send_message(
-            f"{TARGET_USER} ist nicht im Channel.", ephemeral=True
+            "Kleemann ist nicht auf dem Server.", ephemeral=True
         )
         return
 
     await interaction.response.send_message(
-        f"Hallo {member.mention} wie sieht es aus in deiner kleinen Französischen Provinz?"
+        f"Hallo {member.mention}, wie sieht es aus in deiner kleinen Französischen Provinz?"
     )
 
 # ----------------------------------------
@@ -66,10 +75,10 @@ async def zahlen(interaction: discord.Interaction):
         )
         return
 
-    member = discord.utils.get(interaction.guild.members, name=TARGET_USER)
+    member = get_target_member(interaction.guild)
     if not member:
         await interaction.response.send_message(
-            f"{TARGET_USER} ist nicht im Channel.", ephemeral=True
+            "Kleemann ist nicht auf dem Server.", ephemeral=True
         )
         return
 
@@ -91,13 +100,13 @@ async def geruch(interaction: discord.Interaction):
         )
         return
 
-    member = discord.utils.get(interaction.guild.members, name=TARGET_USER)
+    member = get_target_member(interaction.guild)
     if not member:
         await interaction.response.send_message(
-            f"{TARGET_USER} ist nicht im Channel.", ephemeral=True
+            "Kleemann ist nicht auf dem Server.", ephemeral=True
         )
         return
 
     await interaction.response.send_message(
-        f"{member.mention}, Ich atme lieber nicht mehr, wenn du in der Nähe bist.!"
+        f"{member.mention}, Ich atme lieber nicht mehr, wenn du in der Nähe bist!"
     )
