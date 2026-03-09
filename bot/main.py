@@ -1,29 +1,34 @@
 import discord
 from discord.ext import commands
-from discord import app_commands  # <--- das war der fehlende Import
-from bot.config import DISCORD_TOKEN
+from discord import app_commands
 import os
 import importlib
+from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
+intents.message_content = True
+intents.guilds = True
+intents.members = True
+
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+COMMANDS_FOLDER = "bot/commands"
 
 @bot.event
 async def on_ready():
-    commands_folder = "bot.commands"
-
-    for filename in os.listdir("bot/commands"):
+    print(f"✅ Eingeloggt als {bot.user}")
+    for filename in os.listdir(COMMANDS_FOLDER):
         if filename.endswith(".py") and filename != "__init__.py":
             module_name = filename[:-3]
-            module = importlib.import_module(f"{commands_folder}.{module_name}")
-
-            # alle Commands laden
+            module = importlib.import_module(f"bot.commands.{module_name}")
             for attr in dir(module):
                 obj = getattr(module, attr)
                 if isinstance(obj, app_commands.Command):
                     bot.tree.add_command(obj)
-
     await bot.tree.sync()
-    print(f"✅ Eingeloggt als {bot.user}")
+    print("✅ Alle Commands synchronisiert")
 
-bot.run(DISCORD_TOKEN)
+bot.run(TOKEN)
