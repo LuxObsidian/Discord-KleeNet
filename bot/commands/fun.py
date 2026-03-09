@@ -7,16 +7,24 @@ TARGET_USER = "Kleemann"  # nur auf diesen User reagiert der Bot
 # -------------------------------
 # Cooldown Setup
 # -------------------------------
-last_used = {}  # speichert die letzte Benutzung pro User
-COOLDOWN_SECONDS = 30  # Sekunden zwischen Benutzungen (anpassbar)
+# speichert die letzte Benutzung pro User und pro Command
+last_used = {}  # key: (user_id, command_name), value: timestamp
 
-def check_cooldown(user_id: int) -> bool:
+# Cooldowns pro Command (in Sekunden)
+COMMAND_COOLDOWNS = {
+    "klee": 30,
+    "zahlen": 60,
+    "geruch": 15
+}
+
+def check_cooldown(user_id: int, command_name: str) -> bool:
     """Prüft, ob der User den Command benutzen darf"""
     now = time.time()
-    last = last_used.get(user_id, 0)
-    if now - last < COOLDOWN_SECONDS:
+    last = last_used.get((user_id, command_name), 0)
+    cooldown = COMMAND_COOLDOWNS.get(command_name, 30)
+    if now - last < cooldown:
         return False
-    last_used[user_id] = now
+    last_used[(user_id, command_name)] = now
     return True
 
 # ----------------------------------------
@@ -27,7 +35,7 @@ def check_cooldown(user_id: int) -> bool:
     description="Spaßbefehl für Kleemann"
 )
 async def klee(interaction: discord.Interaction):
-    if not check_cooldown(interaction.user.id):
+    if not check_cooldown(interaction.user.id, "klee"):
         await interaction.response.send_message(
             "Langsam! Du bist noch im Cooldown.", ephemeral=True
         )
@@ -52,7 +60,7 @@ async def klee(interaction: discord.Interaction):
     description="Spaßbefehl nur für Kleemann"
 )
 async def zahlen(interaction: discord.Interaction):
-    if not check_cooldown(interaction.user.id):
+    if not check_cooldown(interaction.user.id, "zahlen"):
         await interaction.response.send_message(
             "Langsam! Du bist noch im Cooldown.", ephemeral=True
         )
@@ -77,7 +85,7 @@ async def zahlen(interaction: discord.Interaction):
     description="Noch ein Spaßbefehl für Kleemann"
 )
 async def geruch(interaction: discord.Interaction):
-    if not check_cooldown(interaction.user.id):
+    if not check_cooldown(interaction.user.id, "geruch"):
         await interaction.response.send_message(
             "Langsam! Du bist noch im Cooldown.", ephemeral=True
         )
