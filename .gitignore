@@ -12,5 +12,14 @@ __pycache__/
 # Database files
 *.db
 
+# Logs
+*.log
+
+# Test-Skripte
+test_env.py
+
+# Generierte Dateien
+word_counts.json
+
 # VS Code local settings (optional)
 .vscode/
