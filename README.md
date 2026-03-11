@@ -131,4 +131,5 @@ This is a private project. If you have suggestions or find bugs, feel free to op
 
 ---
 
-*Built with ❤️ by LuxObsidian*
+*(C) 2026 by LuxObsidian. Contact alain@luxobsidian.eu*
+
