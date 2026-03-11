@@ -12,7 +12,7 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 # Bot-Einstellungen
 # -------------------------------
 PREFIX = "!"
-TEST_GUILD_ID = 1480566665493352509
+TEST_GUILD_ID = 134690944296550400
 
 # -------------------------------
 # Benutzer-IDs
